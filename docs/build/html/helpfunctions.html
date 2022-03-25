@@ -1,0 +1,987 @@
+
+<!DOCTYPE html>
+
+<html lang="english">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>linear algebra: help functions &#8212; Relaxed Richardson 1.0.0 documentation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reference guide" href="api.html" />
+    <link rel="prev" title="Relaxed Richardson Solver" href="relaxedrichardson_iterativesolver.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="english">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Relaxed Richardson 1.0.0 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="relaxedrichardson_iterativesolver.html">
+   Relaxed Richardson Solver
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   linear algebra: help functions
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Sources:
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="api.html">
+   Reference guide
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="generated/src.relaxedrichardson_iterativesolver.html">
+     src.relaxedrichardson_iterativesolver
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="generated/src.csrmatrix.html">
+     src.csrmatrix
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="generated/src.linalg.html">
+     src.linalg
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="generated/src.tridiagtoep.html">
+     src.tridiagtoep
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="generated/src.unitymatrix.html">
+     src.unitymatrix
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
+<div class="sbt-scroll-pixel-helper"></div>
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            <div class="topbar-left">
+                
+                <label class="nav-toggle-button" for="__navigation">
+                    <div class="visually-hidden">Toggle navigation</div>
+                    <i class="fas fa-bars"></i>
+                </label>
+                
+            </div>
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/helpfunctions.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#csr-matrix-class">
+   CSR matrix class
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tridiagonal-toeplitz-matrix-and-unit-matrix">
+   Tridiagonal Toeplitz Matrix and Unit Matrix
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vectors">
+   Vectors
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#code">
+     Code
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>linear algebra: help functions</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#csr-matrix-class">
+   CSR matrix class
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tridiagonal-toeplitz-matrix-and-unit-matrix">
+   Tridiagonal Toeplitz Matrix and Unit Matrix
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vectors">
+   Vectors
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#code">
+     Code
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="section" id="linear-algebra-help-functions">
+<h1>linear algebra: help functions<a class="headerlink" href="#linear-algebra-help-functions" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<div class="section" id="csr-matrix-class">
+<h2>CSR matrix class<a class="headerlink" href="#csr-matrix-class" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.csrmatrix.csr_matrix">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">src.csrmatrix.</span></span><span class="sig-name descname"><span class="pre">csr_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csrTuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/csrmatrix.html#csr_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.csrmatrix.csr_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compressed Sparse Row matrix.</p>
+<dl class="simple">
+<dt>This can  be instantiated via:</dt><dd><p>csr_matrix((data, indices, indptr), [shape = (m,n)])</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.csrmatrix.csr_matrix.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#src.csrmatrix.csr_matrix.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>CSR format data array of the matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.csrmatrix.csr_matrix.indices">
+<span class="sig-name descname"><span class="pre">indices</span></span><a class="headerlink" href="#src.csrmatrix.csr_matrix.indices" title="Permalink to this definition">¶</a></dt>
+<dd><p>CSR formmat indices array of the matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.csrmatrix.csr_matrix.indptr">
+<span class="sig-name descname"><span class="pre">indptr</span></span><a class="headerlink" href="#src.csrmatrix.csr_matrix.indptr" title="Permalink to this definition">¶</a></dt>
+<dd><p>CSR format index pointer array of the matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.csrmatrix.csr_matrix.shape">
+<span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#src.csrmatrix.csr_matrix.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shape (/dimension) of the matrix, optional.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>2-tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Functions</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.csrmatrix.csr_matrix.__add__">
+<span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">B</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/csrmatrix.html#csr_matrix.__add__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.csrmatrix.csr_matrix.__add__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sum of two matrices A and B.</p>
+<p>Operator : + / -</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<a class="reference internal" href="#src.csrmatrix.csr_matrix" title="src.csrmatrix.csr_matrix"><em>csr_matrix</em></a>) -- Contains lists of data, indices, indptr as well as tuple (m,n) shape of matrix.</p></li>
+<li><p><strong>B</strong> (<a class="reference internal" href="#src.csrmatrix.csr_matrix" title="src.csrmatrix.csr_matrix"><em>csr_matrix</em></a>) -- Contains lists of data, indices, indptr as well as tuple (m,n) shape of matrix.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>csrAplusB</strong> -- A+B in CSR format.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#src.csrmatrix.csr_matrix" title="src.csrmatrix.csr_matrix">csr_matrix</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.csrmatrix.csr_matrix.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">csrTuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/csrmatrix.html#csr_matrix.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.csrmatrix.csr_matrix.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.csrmatrix.csr_matrix.__matmul__">
+<span class="sig-name descname"><span class="pre">__matmul__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/csrmatrix.html#csr_matrix.__matmul__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.csrmatrix.csr_matrix.__matmul__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matrix-vector product.</p>
+<p>Operator : &#64;</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<a class="reference internal" href="#src.csrmatrix.csr_matrix" title="src.csrmatrix.csr_matrix"><em>csr_matrix</em></a>) -- Matrix in CSR format.</p></li>
+<li><p><strong>b</strong> (<em>list</em>) -- Vector.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>Amatmulb</strong> -- Resulting vector.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.csrmatrix.csr_matrix.toarray">
+<span class="sig-name descname"><span class="pre">toarray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/csrmatrix.html#csr_matrix.toarray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.csrmatrix.csr_matrix.toarray" title="Permalink to this definition">¶</a></dt>
+<dd><p>CSR matrix array.</p>
+<p>Function arrays full matrix based on csr_matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>A</strong> (<a class="reference internal" href="#src.csrmatrix.csr_matrix" title="src.csrmatrix.csr_matrix"><em>csr_matrix</em></a>) -- Contains lists of data, indices, indptr as well as tuple (m,n) shape of matrix.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>rows</strong> -- Contains list of each row.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="tridiagonal-toeplitz-matrix-and-unit-matrix">
+<h2>Tridiagonal Toeplitz Matrix and Unit Matrix<a class="headerlink" href="#tridiagonal-toeplitz-matrix-and-unit-matrix" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.tridiagtoep.tridiagtoep">
+<span class="sig-prename descclassname"><span class="pre">src.tridiagtoep.</span></span><span class="sig-name descname"><span class="pre">tridiagtoep</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">toepdata</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/tridiagtoep.html#tridiagtoep"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.tridiagtoep.tridiagtoep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tridiagonal Toeplitz matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>int</em>) -- Shape of matrix will be (n,n).</p></li>
+<li><p><strong>toepdata</strong> (<em>list</em>) -- Supposed to contain 3 elements; data = [value on diagonal, upper value, under value].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>toeplitz</strong> -- Instantiated CSR matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#src.csrmatrix.csr_matrix" title="src.csrmatrix.csr_matrix">csr_matrix</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.unitymatrix.I">
+<span class="sig-prename descclassname"><span class="pre">src.unitymatrix.</span></span><span class="sig-name descname"><span class="pre">I</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/unitymatrix.html#I"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.unitymatrix.I" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unit matrix I.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>int</em>) -- Dimension of unit matrix.</p></li>
+<li><p><strong>delta</strong> (<em>int</em><em> or </em><em>float</em><em>, </em><em>optional</em>) -- Factor for scalar multiplication. The default is 1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>I</strong> -- Unit matrix in CSR format.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#src.csrmatrix.csr_matrix" title="src.csrmatrix.csr_matrix">csr_matrix</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="vectors">
+<h2>Vectors<a class="headerlink" href="#vectors" title="Permalink to this headline">¶</a></h2>
+<dl class="simple">
+<dt>Vector functions: build vector, dimension, scalar multiplication, addition, Euclid norm.</dt><dd><p>Function for matrix-vector product.</p>
+</dd>
+</dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.linalg.vector">
+<span class="sig-prename descclassname"><span class="pre">src.linalg.</span></span><span class="sig-name descname"><span class="pre">vector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scalar1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar2</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">scalars</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/linalg.html#vector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.linalg.vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Vector instantiation.</p>
+<p>Builds vector v=(v1, v2, ...)T based on given scalars.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scalar1</strong> (<em>float/ int</em>) -- Scalar v1.</p></li>
+<li><p><strong>scalar2</strong> (<em>float/ int</em>) -- Scalar v2.</p></li>
+<li><p><strong>*scalars</strong> (<em>float/ int</em>) -- Any other scalars v3, v4,...</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>vector</strong> -- Scalars are elements of this list.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.linalg.vecdim">
+<span class="sig-prename descclassname"><span class="pre">src.linalg.</span></span><span class="sig-name descname"><span class="pre">vecdim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vector</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/linalg.html#vecdim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.linalg.vecdim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dimension of given vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>vector</strong> (<em>list</em>) -- Given vector.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>len(vector)</strong> -- Number of elements/scalars of vector.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.linalg.scal">
+<span class="sig-prename descclassname"><span class="pre">src.linalg.</span></span><span class="sig-name descname"><span class="pre">scal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/linalg.html#scal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.linalg.scal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scalar multiplication.</p>
+<p>Vector x multiplied by alpha.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<em>float</em>) -- Scalar.</p></li>
+<li><p><strong>x</strong> (<em>list</em>) -- vector.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>scalvec</strong> -- Vector.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.linalg.axpy">
+<span class="sig-prename descclassname"><span class="pre">src.linalg.</span></span><span class="sig-name descname"><span class="pre">axpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/linalg.html#axpy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.linalg.axpy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Addition of vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>list</em>) -- Vector.</p></li>
+<li><p><strong>y</strong> (<em>list</em>) -- Vector.</p></li>
+<li><p><strong>alpha</strong> (<em>float/ int</em><em>, </em><em>optional</em>) -- For scalar multiplicaton: vector x multplied by alpha. The default is 1..</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>addvec</strong> -- Vector.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.linalg.nrm">
+<span class="sig-prename descclassname"><span class="pre">src.linalg.</span></span><span class="sig-name descname"><span class="pre">nrm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/linalg.html#nrm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.linalg.nrm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Euclid norm of a vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>list</em>) -- Vector.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>normx</strong> -- Euclid norm.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.linalg.csrmv">
+<span class="sig-prename descclassname"><span class="pre">src.linalg.</span></span><span class="sig-name descname"><span class="pre">csrmv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/linalg.html#csrmv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.linalg.csrmv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matrix-vector product.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>A</strong> (<a class="reference internal" href="#src.csrmatrix.csr_matrix" title="src.csrmatrix.csr_matrix"><em>csr_matrix</em></a>) -- Matrix in CSR format.</p></li>
+<li><p><strong>x</strong> (<em>list</em>) -- Vector.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>mvp</strong> -- Vector Ax.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="section" id="code">
+<h3>Code<a class="headerlink" href="#code" title="Permalink to this headline">¶</a></h3>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">CSR matrix class:</span><a class="headerlink" href="#id1" title="Permalink to this code">¶</a></div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="k">class</span> <span class="ss">csr_matrix</span><span class="p">:</span>
+<span class="linenos">  2</span>    <span class="s2">&quot;&quot;&quot;Compressed Sparse Row matrix.</span>
+<span class="linenos">  3</span>
+<span class="linenos">  4</span><span class="s2">    This can  be instantiated via:</span>
+<span class="linenos">  5</span><span class="s2">        csr_matrix((data, indices, indptr), [shape = (m,n)])</span>
+<span class="linenos">  6</span>
+<span class="linenos">  7</span><span class="s2">    Attributes</span>
+<span class="linenos">  8</span><span class="s2">    ----------</span>
+<span class="linenos">  9</span>
+<span class="linenos"> 10</span><span class="s2">    data : list</span>
+<span class="linenos"> 11</span><span class="s2">        CSR format data array of the matrix.</span>
+<span class="linenos"> 12</span><span class="s2">    indices : list</span>
+<span class="linenos"> 13</span><span class="s2">        CSR formmat indices array of the matrix.</span>
+<span class="linenos"> 14</span><span class="s2">    indptr : list</span>
+<span class="linenos"> 15</span><span class="s2">        CSR format index pointer array of the matrix.</span>
+<span class="linenos"> 16</span><span class="s2">    shape : 2-tuple</span>
+<span class="linenos"> 17</span><span class="s2">        Shape (/dimension) of the matrix, optional.</span>
+<span class="linenos"> 18</span>
+<span class="linenos"> 19</span>
+<span class="linenos"> 20</span><span class="s2">    Functions</span>
+<span class="linenos"> 21</span>
+<span class="linenos"> 22</span><span class="s2">    &quot;&quot;&quot;</span>
+<span class="linenos"> 23</span>
+<span class="linenos"> 24</span>    <span class="k">def</span> <span class="n">__init__</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="n">csrTuple</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="no">None</span><span class="p">):</span>
+<span class="linenos"> 25</span>        <span class="n">_data</span><span class="p">,</span> <span class="n">_indices</span><span class="p">,</span> <span class="n">_indptr</span> <span class="o">=</span> <span class="n">csrTuple</span>
+<span class="linenos"> 26</span>        <span class="k">if</span> <span class="ss">shape</span><span class="p">:</span>
+<span class="linenos"> 27</span>            <span class="nb">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">shape</span>
+<span class="linenos"> 28</span>        <span class="nb">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">_data</span>
+<span class="linenos"> 29</span>        <span class="nb">self</span><span class="o">.</span><span class="n">indices</span> <span class="o">=</span> <span class="n">_indices</span>
+<span class="linenos"> 30</span>        <span class="nb">self</span><span class="o">.</span><span class="n">indptr</span> <span class="o">=</span> <span class="n">_indptr</span>
+<span class="linenos"> 31</span>
+<span class="linenos"> 32</span>    <span class="k">def</span> <span class="nf">toarray</span><span class="p">(</span><span class="nb">self</span><span class="p">):</span>
+<span class="linenos"> 33</span>        <span class="s2">&quot;&quot;&quot;CSR matrix array.</span>
+<span class="linenos"> 34</span>
+<span class="linenos"> 35</span><span class="s2">        Function arrays full matrix based on csr_matrix.</span>
+<span class="linenos"> 36</span>
+<span class="linenos"> 37</span><span class="s2">        Parameters</span>
+<span class="linenos"> 38</span><span class="s2">        ----------</span>
+<span class="linenos"> 39</span><span class="s2">        A : csr_matrix</span>
+<span class="linenos"> 40</span><span class="s2">            Contains lists of data, indices, indptr as well as tuple (m,n) shape of matrix.</span>
+<span class="linenos"> 41</span>
+<span class="linenos"> 42</span><span class="s2">        Returns</span>
+<span class="linenos"> 43</span><span class="s2">        -------</span>
+<span class="linenos"> 44</span><span class="s2">        rows : list</span>
+<span class="linenos"> 45</span><span class="s2">            Contains list of each row.</span>
+<span class="linenos"> 46</span>
+<span class="linenos"> 47</span><span class="s2">        &quot;&quot;&quot;</span>
+<span class="linenos"> 48</span>        <span class="n">m</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">shape</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>  <span class="c1"># rows</span>
+<span class="linenos"> 49</span>        <span class="n">n</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">shape</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>  <span class="c1"># columns</span>
+<span class="linenos"> 50</span>        <span class="n">rows</span> <span class="o">=</span> <span class="o">[]</span>  <span class="c1"># gap for rows</span>
+<span class="linenos"> 51</span>        <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>  <span class="c1"># in order to create list for each row</span>
+<span class="linenos"> 52</span>            <span class="n">row_helper</span> <span class="o">=</span> <span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">*</span> <span class="n">n</span>
+<span class="linenos"> 53</span>            <span class="k">for</span> <span class="n">l</span> <span class="k">in</span> <span class="n">range</span><span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">indptr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">,</span> <span class="nb">self</span><span class="o">.</span><span class="n">indptr</span><span class="o">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="o">]</span><span class="p">):</span>  <span class="c1"># adjacency pairs from list indptr (Adjanzenzpaare)</span>
+<span class="linenos"> 54</span>                <span class="n">row_helper</span><span class="o">[</span><span class="nb">self</span><span class="o">.</span><span class="n">indices</span><span class="o">[</span><span class="n">l</span><span class="o">]]</span> <span class="o">=</span> <span class="nb">self</span><span class="o">.</span><span class="n">data</span><span class="o">[</span><span class="n">l</span><span class="o">]</span>  <span class="c1"># zeros in row_helper replaced by data</span>
+<span class="linenos"> 55</span>            <span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span> <span class="o">+</span> <span class="o">[</span><span class="n">row_helper</span><span class="o">]</span>
+<span class="linenos"> 56</span>        <span class="k">return</span> <span class="n">rows</span>
+<span class="linenos"> 57</span>
+<span class="linenos"> 58</span>    <span class="k">def</span> <span class="n">__matmul__</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="linenos"> 59</span>        <span class="s2">&quot;&quot;&quot;Matrix-vector product.</span>
+<span class="linenos"> 60</span>
+<span class="linenos"> 61</span><span class="s2">        Operator : @</span>
+<span class="linenos"> 62</span>
+<span class="linenos"> 63</span><span class="s2">        Parameters</span>
+<span class="linenos"> 64</span><span class="s2">        ----------</span>
+<span class="linenos"> 65</span><span class="s2">        A : csr_matrix</span>
+<span class="linenos"> 66</span><span class="s2">            Matrix in CSR format.</span>
+<span class="linenos"> 67</span><span class="s2">        b : list</span>
+<span class="linenos"> 68</span><span class="s2">            Vector.</span>
+<span class="linenos"> 69</span>
+<span class="linenos"> 70</span><span class="s2">        Returns</span>
+<span class="linenos"> 71</span><span class="s2">        -------</span>
+<span class="linenos"> 72</span><span class="s2">        Amatmulb : list</span>
+<span class="linenos"> 73</span><span class="s2">            Resulting vector.</span>
+<span class="linenos"> 74</span><span class="s2">        &quot;&quot;&quot;</span>
+<span class="linenos"> 75</span>        <span class="n">A</span> <span class="o">=</span> <span class="n">csr_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span> <span class="c1"># firstly builds full matrix</span>
+<span class="linenos"> 76</span>        <span class="c1"># now A@b</span>
+<span class="linenos"> 77</span>        <span class="no">Amatmulb</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="linenos"> 78</span>        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos"> 79</span>        <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="ss">A</span><span class="p">:</span>  <span class="c1"># A is list, i is list in A</span>
+<span class="linenos"> 80</span>            <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos"> 81</span>            <span class="k">for</span> <span class="n">l</span> <span class="k">in</span> <span class="ss">i</span><span class="p">:</span>  <span class="c1"># for scalars of Amatmulb</span>
+<span class="linenos"> 82</span>                <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">l</span> <span class="o">*</span> <span class="n">b</span><span class="o">[</span><span class="n">j</span><span class="o">]</span>  <span class="c1"># adds up scalars</span>
+<span class="linenos"> 83</span>                <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="linenos"> 84</span>            <span class="no">Amatmulb</span> <span class="o">=</span> <span class="no">Amatmulb</span> <span class="o">+</span> <span class="o">[</span><span class="n">x</span><span class="o">]</span>
+<span class="linenos"> 85</span>            <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># reset for next row</span>
+<span class="linenos"> 86</span>        <span class="k">return</span> <span class="no">Amatmulb</span>
+<span class="linenos"> 87</span>
+<span class="linenos"> 88</span>    <span class="k">def</span> <span class="n">__add__</span><span class="p">(</span><span class="nb">self</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+<span class="linenos"> 89</span>        <span class="s2">&quot;&quot;&quot;Sum of two matrices A and B.</span>
+<span class="linenos"> 90</span>
+<span class="linenos"> 91</span><span class="s2">        Operator : + / -</span>
+<span class="linenos"> 92</span>
+<span class="linenos"> 93</span><span class="s2">        Parameters</span>
+<span class="linenos"> 94</span><span class="s2">        ----------</span>
+<span class="linenos"> 95</span><span class="s2">        A : csr_matrix</span>
+<span class="linenos"> 96</span><span class="s2">            Contains lists of data, indices, indptr as well as tuple (m,n) shape of matrix.</span>
+<span class="linenos"> 97</span><span class="s2">        B : csr_matrix</span>
+<span class="linenos"> 98</span><span class="s2">            Contains lists of data, indices, indptr as well as tuple (m,n) shape of matrix.</span>
+<span class="linenos"> 99</span>
+<span class="linenos">100</span><span class="s2">        Returns</span>
+<span class="linenos">101</span><span class="s2">        -------</span>
+<span class="linenos">102</span><span class="s2">        csrAplusB : csr_matrix</span>
+<span class="linenos">103</span><span class="s2">            A+B in CSR format.</span>
+<span class="linenos">104</span><span class="s2">        &quot;&quot;&quot;</span>
+<span class="linenos">105</span>        <span class="no">Aar</span> <span class="o">=</span> <span class="n">csr_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">(</span><span class="nb">self</span><span class="p">)</span>
+<span class="linenos">106</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">len</span><span class="p">(</span><span class="no">Aar</span><span class="p">)</span>
+<span class="linenos">107</span>        <span class="no">Bar</span> <span class="o">=</span> <span class="n">csr_matrix</span><span class="o">.</span><span class="n">toarray</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+<span class="linenos">108</span>        <span class="no">AplusB</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="linenos">109</span>        <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="ss">Aar</span><span class="p">:</span>  <span class="c1"># i is list/ row of Aar</span>
+<span class="linenos">110</span>            <span class="n">k</span> <span class="o">=</span> <span class="no">Bar</span><span class="o">[</span><span class="no">Aar</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">]</span>  <span class="c1"># k is list/ row of Bar</span>
+<span class="linenos">111</span>            <span class="n">row_helper</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="linenos">112</span>            <span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="n">range</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="linenos">113</span>                <span class="n">row_helper</span> <span class="o">=</span> <span class="n">row_helper</span> <span class="o">+</span> <span class="o">[</span><span class="n">i</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">+</span> <span class="n">k</span><span class="o">[</span><span class="n">j</span><span class="o">]]</span>  <span class="c1"># adds scalars of rows</span>
+<span class="linenos">114</span>            <span class="no">AplusB</span> <span class="o">=</span> <span class="no">AplusB</span> <span class="o">+</span> <span class="o">[</span><span class="n">row_helper</span><span class="o">]</span>
+<span class="linenos">115</span>
+<span class="linenos">116</span>       <span class="c1">#now back to CSR format</span>
+<span class="linenos">117</span>        <span class="n">data</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="linenos">118</span>        <span class="n">indices</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="linenos">119</span>        <span class="n">indptr</span> <span class="o">=</span> <span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+<span class="linenos">120</span>        <span class="n">ptrcount</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">121</span>        <span class="k">for</span> <span class="n">row</span> <span class="k">in</span> <span class="ss">AplusB</span><span class="p">:</span>
+<span class="linenos">122</span>            <span class="n">m</span> <span class="o">=</span> <span class="n">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>        <span class="c1">#for shape</span>
+<span class="linenos">123</span>            <span class="k">for</span> <span class="n">j</span> <span class="k">in</span> <span class="ss">row</span><span class="p">:</span>
+<span class="linenos">124</span>                <span class="k">if</span> <span class="n">j</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">125</span>                    <span class="n">data</span> <span class="o">=</span> <span class="n">data</span> <span class="o">+</span> <span class="o">[</span><span class="n">j</span><span class="o">]</span>
+<span class="linenos">126</span>                    <span class="n">indices</span> <span class="o">=</span> <span class="n">indices</span> <span class="o">+</span> <span class="o">[</span><span class="n">row</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">j</span><span class="p">)</span><span class="o">]</span>
+<span class="linenos">127</span>                    <span class="n">ptrcount</span> <span class="o">=</span> <span class="n">ptrcount</span><span class="o">+</span><span class="mi">1</span>
+<span class="linenos">128</span>            <span class="n">indptr</span> <span class="o">=</span> <span class="n">indptr</span> <span class="o">+</span> <span class="o">[</span><span class="n">ptrcount</span><span class="o">]</span>
+<span class="linenos">129</span>        <span class="n">n</span> <span class="o">=</span> <span class="n">len</span><span class="p">(</span><span class="no">AplusB</span><span class="p">)</span>
+<span class="linenos">130</span>        <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="linenos">131</span>        <span class="n">csrAplusB</span> <span class="o">=</span> <span class="n">csr_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">indptr</span><span class="p">),</span><span class="n">shape</span><span class="p">)</span>
+<span class="linenos">132</span>        <span class="k">return</span> <span class="n">csrAplusB</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Tridiagonal Toeplitz Matrix:</span><a class="headerlink" href="#id2" title="Permalink to this code">¶</a></div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">from</span> <span class="n">src</span> <span class="n">import</span> <span class="n">csrmatrix</span> <span class="n">as</span> <span class="n">csr</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="k">def</span> <span class="nf">tridiagtoep</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">toepdata</span><span class="p">):</span>
+<span class="linenos"> 4</span>    <span class="s2">&quot;&quot;&quot;Tridiagonal Toeplitz matrix.</span>
+<span class="linenos"> 5</span>
+<span class="linenos"> 6</span><span class="s2">    Parameters</span>
+<span class="linenos"> 7</span><span class="s2">    ----------</span>
+<span class="linenos"> 8</span><span class="s2">    n : int</span>
+<span class="linenos"> 9</span><span class="s2">        Shape of matrix will be (n,n).</span>
+<span class="linenos">10</span><span class="s2">    toepdata : list</span>
+<span class="linenos">11</span><span class="s2">        Supposed to contain 3 elements; data = [value on diagonal, upper value, under value].</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span><span class="s2">    Returns</span>
+<span class="linenos">14</span><span class="s2">    -------</span>
+<span class="linenos">15</span><span class="s2">    toeplitz : csr_matrix</span>
+<span class="linenos">16</span><span class="s2">        Instantiated CSR matrix.</span>
+<span class="linenos">17</span>
+<span class="linenos">18</span><span class="s2">    &quot;&quot;&quot;</span>
+<span class="linenos">19</span>    <span class="n">data</span> <span class="o">=</span> <span class="n">toepdata</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="o">[</span><span class="n">toepdata</span><span class="o">[</span><span class="mi">0</span><span class="o">]]</span>
+<span class="linenos">20</span>
+<span class="linenos">21</span>    <span class="n">indptr</span> <span class="o">=</span> <span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">]</span>  <span class="c1"># 2 elements in first row</span>
+<span class="linenos">22</span>    <span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="linenos">23</span>    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>
+<span class="linenos">24</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">3</span>  <span class="c1"># 3 elements in middle rows</span>
+<span class="linenos">25</span>        <span class="n">indptr</span> <span class="o">=</span> <span class="n">indptr</span> <span class="o">+</span> <span class="o">[</span><span class="n">x</span><span class="o">]</span>
+<span class="linenos">26</span>    <span class="n">indptr</span> <span class="o">=</span> <span class="n">indptr</span> <span class="o">+</span> <span class="o">[</span><span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="o">]</span>  <span class="c1"># 2 elements in last row</span>
+<span class="linenos">27</span>
+<span class="linenos">28</span>    <span class="n">indices</span> <span class="o">=</span> <span class="o">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">]</span>  <span class="c1"># first row indices</span>
+<span class="linenos">29</span>    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">range</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">):</span>  <span class="c1"># middle row indices</span>
+<span class="linenos">30</span>        <span class="n">indices</span> <span class="o">=</span> <span class="n">indices</span> <span class="o">+</span> <span class="o">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="o">]</span>
+<span class="linenos">31</span>    <span class="n">indices</span> <span class="o">=</span> <span class="n">indices</span> <span class="o">+</span> <span class="o">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">]</span>  <span class="c1"># last row indices</span>
+<span class="linenos">32</span>
+<span class="linenos">33</span>    <span class="n">toeplitz</span> <span class="o">=</span> <span class="n">csr</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="n">indices</span><span class="p">,</span> <span class="n">indptr</span><span class="p">),</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+<span class="linenos">34</span>    <span class="k">return</span> <span class="n">toeplitz</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Unit Matrix</span><a class="headerlink" href="#id3" title="Permalink to this code">¶</a></div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">from</span> <span class="n">src</span> <span class="n">import</span> <span class="n">csrmatrix</span> <span class="n">as</span> <span class="n">csr</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="k">def</span> <span class="nf">I</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="linenos"> 4</span>    <span class="s2">&quot;&quot;&quot;</span>
+<span class="linenos"> 5</span><span class="s2">    Unit matrix I.</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span><span class="s2">    Parameters</span>
+<span class="linenos"> 8</span><span class="s2">    ----------</span>
+<span class="linenos"> 9</span><span class="s2">    n : int</span>
+<span class="linenos">10</span><span class="s2">        Dimension of unit matrix.</span>
+<span class="linenos">11</span><span class="s2">    delta: int or float, optional</span>
+<span class="linenos">12</span><span class="s2">        Factor for scalar multiplication. The default is 1.</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="s2">    Returns</span>
+<span class="linenos">15</span><span class="s2">    -------</span>
+<span class="linenos">16</span><span class="s2">    I : csr_matrix</span>
+<span class="linenos">17</span><span class="s2">        Unit matrix in CSR format.</span>
+<span class="linenos">18</span>
+<span class="linenos">19</span><span class="s2">    &quot;&quot;&quot;</span>
+<span class="linenos">20</span>    <span class="no">I_data</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="linenos">21</span>    <span class="no">I_index</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="linenos">22</span>    <span class="no">I_indptr</span> <span class="o">=</span> <span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+<span class="linenos">23</span>    <span class="n">n</span> <span class="o">=</span> <span class="n">int</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>  <span class="c1"># int zum iterieren</span>
+<span class="linenos">24</span>
+<span class="linenos">25</span>    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="linenos">26</span>        <span class="no">I_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+<span class="linenos">27</span>        <span class="no">I_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="linenos">28</span>        <span class="no">I_indptr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="linenos">29</span>
+<span class="linenos">30</span>    <span class="n">I</span> <span class="o">=</span> <span class="n">csr</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">((</span><span class="no">I_data</span><span class="p">,</span> <span class="no">I_index</span><span class="p">,</span> <span class="no">I_indptr</span><span class="p">),</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+<span class="linenos">31</span>    <span class="k">return</span> <span class="n">I</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Vectors:</span><a class="headerlink" href="#id4" title="Permalink to this code">¶</a></div>
+<div class="highlight-ruby notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="k">def</span> <span class="nf">vector</span><span class="p">(</span><span class="n">scalar1</span><span class="p">,</span> <span class="n">scalar2</span><span class="p">,</span> <span class="o">*</span><span class="n">scalars</span><span class="p">):</span>
+<span class="linenos">  2</span>    <span class="s2">&quot;&quot;&quot;Vector instantiation.</span>
+<span class="linenos">  3</span>
+<span class="linenos">  4</span><span class="s2">    Builds vector v=(v1, v2, ...)T based on given scalars.</span>
+<span class="linenos">  5</span>
+<span class="linenos">  6</span><span class="s2">    Parameters</span>
+<span class="linenos">  7</span><span class="s2">    ----------</span>
+<span class="linenos">  8</span><span class="s2">    scalar1 : float/ int</span>
+<span class="linenos">  9</span><span class="s2">        Scalar v1.</span>
+<span class="linenos"> 10</span><span class="s2">    scalar2 : float/ int</span>
+<span class="linenos"> 11</span><span class="s2">        Scalar v2.</span>
+<span class="linenos"> 12</span><span class="s2">    *scalars : float/ int</span>
+<span class="linenos"> 13</span><span class="s2">        Any other scalars v3, v4,...</span>
+<span class="linenos"> 14</span>
+<span class="linenos"> 15</span><span class="s2">    Returns</span>
+<span class="linenos"> 16</span><span class="s2">    -------</span>
+<span class="linenos"> 17</span><span class="s2">    vector : list</span>
+<span class="linenos"> 18</span><span class="s2">        Scalars are elements of this list.</span>
+<span class="linenos"> 19</span>
+<span class="linenos"> 20</span><span class="s2">    &quot;&quot;&quot;</span>
+<span class="linenos"> 21</span>    <span class="n">vector</span> <span class="o">=</span> <span class="o">[</span><span class="n">scalar1</span><span class="p">,</span> <span class="n">scalar2</span><span class="p">,</span> <span class="o">*</span><span class="n">scalars</span><span class="o">]</span>
+<span class="linenos"> 22</span>    <span class="k">return</span> <span class="n">vector</span>
+<span class="linenos"> 23</span>
+<span class="linenos"> 24</span><span class="k">def</span> <span class="nf">vecdim</span><span class="p">(</span><span class="n">vector</span><span class="p">):</span>
+<span class="linenos"> 25</span>    <span class="s2">&quot;&quot;&quot;Dimension of given vector.</span>
+<span class="linenos"> 26</span>
+<span class="linenos"> 27</span><span class="s2">    Parameters</span>
+<span class="linenos"> 28</span><span class="s2">    ----------</span>
+<span class="linenos"> 29</span><span class="s2">    vector : list</span>
+<span class="linenos"> 30</span><span class="s2">        Given vector.</span>
+<span class="linenos"> 31</span>
+<span class="linenos"> 32</span><span class="s2">    Returns</span>
+<span class="linenos"> 33</span><span class="s2">    -------</span>
+<span class="linenos"> 34</span><span class="s2">    len(vector): int</span>
+<span class="linenos"> 35</span><span class="s2">        Number of elements/scalars of vector.</span>
+<span class="linenos"> 36</span>
+<span class="linenos"> 37</span><span class="s2">    &quot;&quot;&quot;</span>
+<span class="linenos"> 38</span>    <span class="k">return</span> <span class="n">len</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span>
+<span class="linenos"> 39</span>
+<span class="linenos"> 40</span><span class="k">def</span> <span class="nf">scal</span><span class="p">(</span><span class="n">alpha</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="linenos"> 41</span>    <span class="s2">&quot;&quot;&quot;Scalar multiplication.</span>
+<span class="linenos"> 42</span>
+<span class="linenos"> 43</span><span class="s2">    Vector x multiplied by alpha.</span>
+<span class="linenos"> 44</span>
+<span class="linenos"> 45</span><span class="s2">    Parameters</span>
+<span class="linenos"> 46</span><span class="s2">    ----------</span>
+<span class="linenos"> 47</span><span class="s2">    alpha : float</span>
+<span class="linenos"> 48</span><span class="s2">        Scalar.</span>
+<span class="linenos"> 49</span><span class="s2">    x : list</span>
+<span class="linenos"> 50</span><span class="s2">        vector.</span>
+<span class="linenos"> 51</span>
+<span class="linenos"> 52</span><span class="s2">    Returns</span>
+<span class="linenos"> 53</span><span class="s2">    -------</span>
+<span class="linenos"> 54</span><span class="s2">    scalvec : list</span>
+<span class="linenos"> 55</span><span class="s2">        Vector.</span>
+<span class="linenos"> 56</span>
+<span class="linenos"> 57</span><span class="s2">    &quot;&quot;&quot;</span>
+<span class="linenos"> 58</span>    <span class="n">scalvec</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="linenos"> 59</span>    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="ss">x</span><span class="p">:</span>
+<span class="linenos"> 60</span>        <span class="n">productia</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">alpha</span>
+<span class="linenos"> 61</span>        <span class="n">scalvec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">productia</span><span class="p">)</span>
+<span class="linenos"> 62</span>    <span class="k">return</span> <span class="n">scalvec</span>
+<span class="linenos"> 63</span>
+<span class="linenos"> 64</span>
+<span class="linenos"> 65</span><span class="k">def</span> <span class="nf">axpy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="o">.</span><span class="p">):</span>
+<span class="linenos"> 66</span>    <span class="s2">&quot;&quot;&quot;Addition of vectors.</span>
+<span class="linenos"> 67</span>
+<span class="linenos"> 68</span><span class="s2">    Parameters</span>
+<span class="linenos"> 69</span><span class="s2">    ----------</span>
+<span class="linenos"> 70</span><span class="s2">    x : list</span>
+<span class="linenos"> 71</span><span class="s2">        Vector.</span>
+<span class="linenos"> 72</span><span class="s2">    y : list</span>
+<span class="linenos"> 73</span><span class="s2">        Vector.</span>
+<span class="linenos"> 74</span><span class="s2">    alpha : float/ int, optional</span>
+<span class="linenos"> 75</span><span class="s2">        For scalar multiplicaton: vector x multplied by alpha. The default is 1..</span>
+<span class="linenos"> 76</span>
+<span class="linenos"> 77</span><span class="s2">    Returns</span>
+<span class="linenos"> 78</span><span class="s2">    -------</span>
+<span class="linenos"> 79</span><span class="s2">    addvec : list</span>
+<span class="linenos"> 80</span><span class="s2">        Vector.</span>
+<span class="linenos"> 81</span>
+<span class="linenos"> 82</span><span class="s2">    &quot;&quot;&quot;</span>
+<span class="linenos"> 83</span>    <span class="n">alphax</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="linenos"> 84</span>    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="ss">x</span><span class="p">:</span>  <span class="c1"># scalar multiplication of x by alpha</span>
+<span class="linenos"> 85</span>        <span class="n">productia</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="n">alpha</span>
+<span class="linenos"> 86</span>        <span class="n">alphax</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">productia</span><span class="p">)</span>
+<span class="linenos"> 87</span>
+<span class="linenos"> 88</span>    <span class="n">addvec</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="linenos"> 89</span>    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">range</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">y</span><span class="p">)):</span>
+<span class="linenos"> 90</span>        <span class="n">sumi</span> <span class="o">=</span> <span class="n">alphax</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">+</span> <span class="n">y</span><span class="o">[</span><span class="n">i</span><span class="o">]</span>  <span class="c1"># adds scalars of alpha x and y from same position/ index</span>
+<span class="linenos"> 91</span>        <span class="n">addvec</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sumi</span><span class="p">)</span>
+<span class="linenos"> 92</span>    <span class="k">return</span> <span class="n">addvec</span>
+<span class="linenos"> 93</span>
+<span class="linenos"> 94</span>
+<span class="linenos"> 95</span><span class="k">def</span> <span class="nf">nrm</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="linenos"> 96</span>    <span class="s2">&quot;&quot;&quot;Euclid norm of a vector.</span>
+<span class="linenos"> 97</span>
+<span class="linenos"> 98</span><span class="s2">    Parameters</span>
+<span class="linenos"> 99</span><span class="s2">    ----------</span>
+<span class="linenos">100</span><span class="s2">    x : list</span>
+<span class="linenos">101</span><span class="s2">        Vector.</span>
+<span class="linenos">102</span>
+<span class="linenos">103</span><span class="s2">    Returns</span>
+<span class="linenos">104</span><span class="s2">    -------</span>
+<span class="linenos">105</span><span class="s2">    normx : float</span>
+<span class="linenos">106</span><span class="s2">        Euclid norm.</span>
+<span class="linenos">107</span>
+<span class="linenos">108</span><span class="s2">    &quot;&quot;&quot;</span>
+<span class="linenos">109</span>    <span class="n">quad</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="linenos">110</span>    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="ss">x</span><span class="p">:</span>
+<span class="linenos">111</span>        <span class="n">quad</span> <span class="o">=</span> <span class="n">quad</span> <span class="o">+</span> <span class="o">[</span><span class="n">i</span><span class="o">**</span><span class="mi">2</span><span class="o">]</span>       <span class="c1">#in square root</span>
+<span class="linenos">112</span>    <span class="n">norm</span> <span class="o">=</span> <span class="n">sum</span><span class="p">(</span><span class="n">quad</span><span class="p">)</span> <span class="o">**</span> <span class="mi">0</span><span class="o">.</span><span class="mi">5</span>
+<span class="linenos">113</span>    <span class="k">return</span> <span class="n">norm</span>
+<span class="linenos">114</span>
+<span class="linenos">115</span>
+<span class="linenos">116</span>
+<span class="linenos">117</span><span class="k">def</span> <span class="nf">csrmv</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>            <span class="c1">#similar to __matmul__ in class csr_matrix</span>
+<span class="linenos">118</span>    <span class="s2">&quot;&quot;&quot;</span>
+<span class="linenos">119</span><span class="s2">    Matrix-vector product.</span>
+<span class="linenos">120</span>
+<span class="linenos">121</span><span class="s2">    Parameters</span>
+<span class="linenos">122</span><span class="s2">    ----------</span>
+<span class="linenos">123</span><span class="s2">    A : csr_matrix</span>
+<span class="linenos">124</span><span class="s2">        Matrix in CSR format.</span>
+<span class="linenos">125</span><span class="s2">    x : list</span>
+<span class="linenos">126</span><span class="s2">        Vector.</span>
+<span class="linenos">127</span>
+<span class="linenos">128</span><span class="s2">    Returns</span>
+<span class="linenos">129</span><span class="s2">    -------</span>
+<span class="linenos">130</span><span class="s2">    mvp : list</span>
+<span class="linenos">131</span><span class="s2">        Vector Ax.</span>
+<span class="linenos">132</span><span class="s2">    &quot;&quot;&quot;</span>
+<span class="linenos">133</span>    <span class="n">m</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>    <span class="c1">#like toarray in class csr-matrix</span>
+<span class="linenos">134</span>    <span class="n">n</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+<span class="linenos">135</span>    <span class="n">rows</span> <span class="o">=</span> <span class="o">[]</span>
+<span class="linenos">136</span>    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+<span class="linenos">137</span>        <span class="n">row_helper</span> <span class="o">=</span> <span class="o">[</span><span class="mi">0</span><span class="o">]*</span><span class="n">n</span>
+<span class="linenos">138</span>        <span class="k">for</span> <span class="n">l</span> <span class="k">in</span> <span class="n">range</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">indptr</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">indptr</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span><span class="p">):</span>
+<span class="linenos">139</span>            <span class="n">row_helper</span><span class="o">[</span><span class="n">A</span><span class="o">.</span><span class="n">indices</span><span class="o">[</span><span class="n">l</span><span class="o">]]</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">data</span><span class="o">[</span><span class="n">l</span><span class="o">]</span>
+<span class="linenos">140</span>        <span class="n">rows</span> <span class="o">=</span> <span class="n">rows</span> <span class="o">+</span> <span class="o">[</span><span class="n">row_helper</span><span class="o">]</span>
+<span class="linenos">141</span>
+<span class="linenos">142</span>    <span class="n">mvp</span> <span class="o">=</span> <span class="o">[]</span>        <span class="c1">#matrix vector product</span>
+<span class="linenos">143</span>    <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">144</span>    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="ss">rows</span><span class="p">:</span>
+<span class="linenos">145</span>        <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">146</span>        <span class="k">for</span> <span class="n">l</span> <span class="k">in</span> <span class="ss">i</span><span class="p">:</span>
+<span class="linenos">147</span>            <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">l</span><span class="o">*</span> <span class="n">x</span><span class="o">[</span><span class="n">j</span><span class="o">]</span>
+<span class="linenos">148</span>            <span class="n">j</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="linenos">149</span>        <span class="n">mvp</span> <span class="o">=</span> <span class="n">mvp</span> <span class="o">+</span> <span class="o">[</span><span class="n">y</span><span class="o">]</span>
+<span class="linenos">150</span>        <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">151</span>    <span class="k">return</span> <span class="n">mvp</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="relaxedrichardson_iterativesolver.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Relaxed Richardson Solver</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="api.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Reference guide</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Corinna Ott<br/>
+    
+        &copy; Copyright 2022, Corinna Ott.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
