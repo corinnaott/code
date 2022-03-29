@@ -17,8 +17,7 @@ Tridiagonal Toeplitz Matrix and Unit Matrix
 Vectors
 ---------
 
-Vector functions: build vector, dimension, scalar multiplication, addition, Euclid norm.
- Function for matrix-vector product.
+Vector functions: build vector, dimension, scalar multiplication, addition, Euclid norm. Function for matrix-vector product.
 
 .. autofunction:: src.linalg.vector
 .. autofunction:: src.linalg.vecdim

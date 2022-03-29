@@ -5,16 +5,19 @@ Relaxed Richardson Solver
 Iterative solver for the equation
 
 .. math:: Ax = b
+
 with
 
 .. math:: A\in\mathbb{R}^{n\times n },x\in\mathbb{R}^n ,b\in\mathbb{R}^n
+
 which can be transformed to:
 
-.. math:: x_{k+1} = x_k - \theta (A{x_k}-b)
+.. math:: x_{k+1} = x_k - \theta (A{x_k}-b) .
 
-.
+The unambiguously resulting limiting value x* of the follow solves the equation.
 
 .. autofunction:: src.relaxedrichardson_iterativesolver.richardson
+
 
 Code
 ____
@@ -53,7 +56,7 @@ ____
 
     """
     error = []        #for residues
-    numiter = -1
+    numiter = 0
     x = x0
 
     if A.shape[1] == la.vecdim(b):               #if condition: only Matrix mxn and vector nx1 can be multiplied
@@ -64,6 +67,7 @@ ____
             if residuum < tol:
                 break
             numiter = numiter+1   #while loop until numiter=maxiter (or residuum < 0)
+        numiter = numiter-1       #after last round +1 ist added, so we have to subtract
     else:
         print("No solution. Shape of matrix (n) must confirm with dimension of vector.")
 

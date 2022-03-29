@@ -253,8 +253,8 @@
 \[A\in\mathbb{R}^{n\times n },x\in\mathbb{R}^n ,b\in\mathbb{R}^n\]</div>
 <p>which can be transformed to:</p>
 <div class="math notranslate nohighlight">
-\[x_{k+1} = x_k - \theta (A{x_k}-b)\]</div>
-<p>.</p>
+\[x_{k+1} = x_k - \theta (A{x_k}-b) .\]</div>
+<p>The unambiguously resulting limiting value x* of the follow solves the equation.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="src.relaxedrichardson_iterativesolver.richardson">
 <span class="sig-prename descclassname"><span class="pre">src.relaxedrichardson_iterativesolver.</span></span><span class="sig-name descname"><span class="pre">richardson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/relaxedrichardson_iterativesolver.html#richardson"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.relaxedrichardson_iterativesolver.richardson" title="Permalink to this definition">¶</a></dt>
@@ -314,7 +314,7 @@
 <span class="linenos">29</span>
 <span class="linenos">30</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="linenos">31</span><span class="n">error</span> <span class="o">=</span> <span class="o">[]</span>        <span class="c1">#for residues</span>
-<span class="linenos">32</span><span class="n">numiter</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="linenos">32</span><span class="n">numiter</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="linenos">33</span><span class="n">x</span> <span class="o">=</span> <span class="n">x0</span>
 <span class="linenos">34</span>
 <span class="linenos">35</span><span class="k">if</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">==</span> <span class="n">la</span><span class="o">.</span><span class="n">vecdim</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>               <span class="c1">#if condition: only Matrix mxn and vector nx1 can be multiplied</span>
@@ -325,10 +325,11 @@
 <span class="linenos">40</span>        <span class="k">if</span> <span class="n">residuum</span> <span class="o">&lt;</span> <span class="ss">tol</span><span class="p">:</span>
 <span class="linenos">41</span>            <span class="k">break</span>
 <span class="linenos">42</span>        <span class="n">numiter</span> <span class="o">=</span> <span class="n">numiter</span><span class="o">+</span><span class="mi">1</span>   <span class="c1">#while loop until numiter=maxiter (or residuum &lt; 0)</span>
-<span class="linenos">43</span><span class="k">else</span><span class="p">:</span>
-<span class="linenos">44</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No solution. Shape of matrix (n) must confirm with dimension of vector.&quot;</span><span class="p">)</span>
-<span class="linenos">45</span>
-<span class="linenos">46</span><span class="k">return</span> <span class="s2">&quot;x=&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;error=&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="s2">&quot;numiter=&quot;</span><span class="p">,</span> <span class="n">numiter</span>
+<span class="linenos">43</span>    <span class="n">numiter</span> <span class="o">=</span> <span class="n">numiter</span><span class="o">-</span><span class="mi">1</span>       <span class="c1">#after last round +1 ist added, so we have to subtract</span>
+<span class="linenos">44</span><span class="k">else</span><span class="p">:</span>
+<span class="linenos">45</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No solution. Shape of matrix (n) must confirm with dimension of vector.&quot;</span><span class="p">)</span>
+<span class="linenos">46</span>
+<span class="linenos">47</span><span class="k">return</span> <span class="s2">&quot;x=&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s2">&quot;error=&quot;</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="s2">&quot;numiter=&quot;</span><span class="p">,</span> <span class="n">numiter</span>
 </pre></div>
 </div>
 </div>

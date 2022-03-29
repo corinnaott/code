@@ -29,7 +29,7 @@ def richardson(A, b, x0, theta=.1, maxiter=500, tol=1e-08):
 
     """
     error = []        #for residues
-    numiter = -1
+    numiter = 0
     x = x0
 
     if A.shape[1] == la.vecdim(b):               #if condition: only Matrix mxn and vector nx1 can be multiplied
@@ -40,10 +40,10 @@ def richardson(A, b, x0, theta=.1, maxiter=500, tol=1e-08):
             if residuum < tol:
                 break
             numiter = numiter+1   #while loop until numiter=maxiter (or residuum < 0)
+        numiter = numiter-1       #after last round +1 ist added, so we have to subtract
     else:
         print("No solution. Shape of matrix (n) must confirm with dimension of vector.")
 
     return "x=", x, "error=", error, "numiter=", numiter
-
 
 
